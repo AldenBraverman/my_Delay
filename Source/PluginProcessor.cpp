@@ -19,7 +19,8 @@ My_DelayAudioProcessor::My_DelayAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+                       params(apvts)
 #endif
 {
 }
@@ -95,6 +96,9 @@ void My_DelayAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    //DBG("Hello from Prepare to Play!");
+    params.prepareToPlay(sampleRate);
+    params.reset();
 }
 
 void My_DelayAudioProcessor::releaseResources()
@@ -135,7 +139,11 @@ void My_DelayAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    float gainInDecibels = apvts.getRawParameterValue("gain")->load();
+    // float gainInDecibels = apvts.getRawParameterValue("gain")->load();
+    // float gainInDecibels = apvts.getRawParameterValue(gainParamID.getParamID())->load();
+    // float gainInDecibels = params.gainParam->get();
+    params.update();
+    //float gain = params.gain;
     
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -193,12 +201,12 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 }
 
 //==============================================================================
-juce::AudioProcessorValueTreeState::ParameterLayout My_DelayAudioProcessor::createParameterLayout()
+juce::AudioProcessorValueTreeState::ParameterLayout Parameters::createParameterLayout()
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
     
     layout.add(std::make_unique<juce::AudioParameterFloat>(
-        juce::ParameterID { "gain", 1 },
+        gainParamID,
         "Output Gain",
         juce::NormalisableRange<float> { -12.0f, 12.0f },
         0.0f
