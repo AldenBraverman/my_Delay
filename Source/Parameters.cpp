@@ -22,7 +22,9 @@ Parameters::Parameters(juce::AudioProcessorValueTreeState& apvts)
 {
     // auto* param = apvts.getParameter(gainParamID.getParamID());
     // gainParam = dynamic_cast<juce::AudioParameterFloat*>(param);
-    castParameter(apvts, gainParamID, gainParam);
+    // castParameter(apvts, gainParamID, gainParam);
+    castParameter(apvts, tempoSyncParamID, tempoSyncParam);
+    castParameter(apvts, delayNoteParamID, delayNoteParam);
 }
 
 void Parameters::prepareToPlay(double sampleRate) noexcept
@@ -47,6 +49,9 @@ void Parameters::update() noexcept
     gainSmoother.setTargetValue(newGain);*/
 
     gainSmoother.setTargetValue(juce::Decibels::decibelsToGain(gainParam->get()));
+    
+    delayNote = delayNoteParam->getIndex();
+    tempoSync = tempoSyncParam->get();
 }
 
 void Parameters::smoothen() noexcept

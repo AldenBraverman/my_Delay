@@ -4,6 +4,8 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="RRrWML" name="my_Delay">
     <GROUP id="{A9BAFEE9-777F-1484-4277-7118479D8A6E}" name="Source">
+      <FILE id="nPmNr2" name="Tempo.cpp" compile="1" resource="0" file="Source/Tempo.cpp"/>
+      <FILE id="dsQXgU" name="Tempo.h" compile="0" resource="0" file="Source/Tempo.h"/>
       <FILE id="Tb7kxn" name="Parameters.cpp" compile="1" resource="0" file="Source/Parameters.cpp"/>
       <FILE id="NgSVow" name="Parameters.h" compile="0" resource="0" file="Source/Parameters.h"/>
       <FILE id="l0P1GG" name="PluginProcessor.cpp" compile="1" resource="0"

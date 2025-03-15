@@ -12,7 +12,10 @@
 
 #include <JuceHeader.h>
 
-const juce::ParameterID gainParamID{ "gain", 1 };
+
+//const juce::ParameterID gainParamID{ "gain", 1 };
+const juce::ParameterID tempoSyncParamID { "tempoSync", 1};
+const juce::ParameterID delayNoteParamID { "delayNote", 1};
 
 class Parameters
 {
@@ -28,8 +31,18 @@ public:
     void prepareToPlay(double sampleRate) noexcept;
     void reset() noexcept;
     void smoothen() noexcept;
+    
+    int delayNote = 0;
+    bool tempoSync = false;
+    
+    static constexpr float minDelayTime = 5.0f;
+    static constexpr float maxDelayTime = 5000.0f;
+    
 private:
     juce::AudioParameterFloat* gainParam;
-
     juce::LinearSmoothedValue<float> gainSmoother;
+    juce::AudioParameterBool* tempoSyncParam;
+    juce::AudioParameterChoice* delayNoteParam;
+    
+    
 };

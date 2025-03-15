@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "Parameters.h"
+#include "Tempo.h"
 
 // const juce::ParameterID gainParamID{ "gain", 1 };
 
@@ -69,6 +70,8 @@ private:
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
 
     Parameters params;
+    
+    Tempo tempo;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (My_DelayAudioProcessor)
